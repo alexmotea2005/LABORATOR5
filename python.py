@@ -5,7 +5,7 @@ import code         # code.interact
 import os           # environment variables
 import inspect      # call stack inspection
 import random       # dumb random number generator
- 
+
 from discord.ext import commands    # Bot class and utils
  
 ################################################################################
@@ -91,9 +91,18 @@ async def roll(ctx, max_val: int):
 async def join(ctx):
     await ctx.author.voice.channel.connect()
 
-'''@bot.command()
+@bot.command()
 async def leave(ctx):
-    pass'''
+    await ctx.voice_client.disconnect()
+
+@bot.command()
+async def play(ctx):
+    source = discord.FFmpegPCMAudio("a.mp3")
+    ctx.voice_client.play(source)
+
+@bot.command()
+async def stop(ctx):
+    await ctx.voice_client.stop()
 
  
 # roll_error - error handler for the <roll> command
